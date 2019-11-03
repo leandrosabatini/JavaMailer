@@ -51,7 +51,7 @@ public class UsuarioController extends HttpServlet {
 		usuario.setId(us.criar(usuario));
 		
 		request.setAttribute("usuario", usuario);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Usuario.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("dashboard.jsp");
 		
 //		switch(acao){
 //		case "Incluir":

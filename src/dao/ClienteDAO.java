@@ -12,7 +12,7 @@ public class ClienteDAO {
 	public int criar(Cliente cliente) {
 		String sqlInsert = "INSERT INTO cliente(nome, email, empresa_id) VALUES (?, ?, ?)";
 		// usando o try with resources do Java 7, que fecha o que abriu
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlInsert);) {
 			stm.setString(1, cliente.getNome());
 			stm.setString(2, cliente.getEmail());
@@ -35,7 +35,7 @@ public class ClienteDAO {
 	public void atualizar(Cliente cliente) {
 		String sqlUpdate = "UPDATE cliente SET nome=?, email=? empresa_id=? WHERE id=?";
 		// usando o try with resources do Java 7, que fecha o que abriu
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
 			stm.setString(1, cliente.getNome());
 			stm.setString(2, cliente.getEmail());
@@ -50,7 +50,7 @@ public class ClienteDAO {
 	public void excluir(int id) {
 		String sqlDelete = "DELETE FROM cliente WHERE id = ?";
 		// usando o try with resources do Java 7, que fecha o que abriu
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
 			stm.setInt(1, id);
 			stm.execute();
@@ -64,7 +64,7 @@ public class ClienteDAO {
 		cliente.setId(id);
 		String sqlSelect = "SELECT nome, email, empresa_id FROM cliente WHERE cliente.id = ?";
 		// usando o try with resources do Java 7, que fecha o que abriu
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
 			stm.setInt(1, cliente.getId());
 			try (ResultSet rs = stm.executeQuery();) {
@@ -92,7 +92,7 @@ public class ClienteDAO {
 		String sqlSelect = "SELECT id, nome, email, empresa_id FROM cliente";
 		Cliente cliente;
 
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);
 				ResultSet rs = stm.executeQuery();) {
 			while (rs.next()) {

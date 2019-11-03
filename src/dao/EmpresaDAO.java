@@ -12,7 +12,7 @@ public class EmpresaDAO {
 	public int criar(Empresa empresa) {
 		String sqlInsert = "INSERT INTO empresa(nome, cnpj) VALUES (?, ?)";
 		
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlInsert);) {
 			stm.setString(1, empresa.getNome());
 			stm.setString(2, empresa.getCnpj());
@@ -34,7 +34,7 @@ public class EmpresaDAO {
 	public void atualizar(Empresa empresa) {
 		String sqlUpdate = "UPDATE empresa SET nome=?, cnpj=? WHERE id=?";
 	
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
 			stm.setString(1, empresa.getNome());
 			stm.setString(2, empresa.getCnpj());
@@ -48,7 +48,7 @@ public class EmpresaDAO {
 	public void excluir(int id) {
 		String sqlDelete = "DELETE FROM empresa WHERE id = ?";
 
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
 			stm.setInt(1, id);
 			stm.execute();
@@ -62,7 +62,7 @@ public class EmpresaDAO {
 		empresa.setId(id);
 		String sqlSelect = "SELECT nome, cnpj FROM empresa WHERE empresa.id = ?";
 
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
 			stm.setInt(1, empresa.getId());
 			try (ResultSet rs = stm.executeQuery();) {
@@ -88,7 +88,7 @@ public class EmpresaDAO {
 		String sqlSelect = "SELECT id, nome, cnpj FROM empresa";
 		Empresa empresa;
 
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);
 				ResultSet rs = stm.executeQuery();) {
 			while (rs.next()) {

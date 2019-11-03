@@ -12,7 +12,7 @@ public class FuncionarioDAO {
 	public int criar(Funcionario funcionario) {
 		String sqlInsert = "INSERT INTO funcionario(nome, email, empresa_id) VALUES (?, ?, ?)";
 		// usando o try with resources do Java 7, que fecha o que abriu
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 			PreparedStatement stm = conn.prepareStatement(sqlInsert);) {
 			stm.setString(1, funcionario.getNome());
 			stm.setString(2, funcionario.getEmail());
@@ -35,7 +35,7 @@ public class FuncionarioDAO {
 	public void atualizar(Funcionario funcionario) {
 		String sqlUpdate = "UPDATE funcionario SET nome=?, email=? empresa_id=? WHERE id=?";
 		// usando o try with resources do Java 7, que fecha o que abriu
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
 			stm.setString(1, funcionario.getNome());
 			stm.setString(2, funcionario.getEmail());
@@ -50,7 +50,7 @@ public class FuncionarioDAO {
 	public void excluir(int id) {
 		String sqlDelete = "DELETE FROM funcionario WHERE id = ?";
 		// usando o try with resources do Java 7, que fecha o que abriu
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
 			stm.setInt(1, id);
 			stm.execute();
@@ -64,7 +64,7 @@ public class FuncionarioDAO {
 		funcionario.setId(id);
 		String sqlSelect = "SELECT nome, email, empresa_id FROM funcionario WHERE funcionario.id = ?";
 		// usando o try with resources do Java 7, que fecha o que abriu
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
 			stm.setInt(1, funcionario.getId());
 			try (ResultSet rs = stm.executeQuery();) {
@@ -92,7 +92,7 @@ public class FuncionarioDAO {
 		String sqlSelect = "SELECT id, nome, email, empresa_id FROM funcionario";
 		Funcionario funcionario;
 
-		try (Connection conn = ConnectionFactory.obtemConexao();
+		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);
 				ResultSet rs = stm.executeQuery();) {
 			while (rs.next()) {
