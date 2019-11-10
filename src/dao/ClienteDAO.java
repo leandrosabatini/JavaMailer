@@ -33,7 +33,7 @@ public class ClienteDAO {
 	}
 
 	public void atualizar(Cliente cliente) {
-		String sqlUpdate = "UPDATE cliente SET nome=?, email=? empresa_id=? WHERE id=?";
+		String sqlUpdate = "UPDATE cliente SET nome=?, email=?, empresa_id=? WHERE id=?";
 		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
@@ -102,6 +102,33 @@ public class ClienteDAO {
 				cliente.setEmail(rs.getString("email"));
 				cliente.setEmpresaId(rs.getInt("empresa_id"));
 				clientes.add(cliente);
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return clientes;
+	}
+
+	public ArrayList<Cliente> listarPorEmpresa(int empresaId) {
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		String sqlSelect = "SELECT id, nome, email, empresa_id FROM cliente WHERE empresa_id=?";
+		Cliente cliente;
+
+		try (Connection conn = ConnectionFactory.obterConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);
+				) {
+			stm.setInt(1, empresaId);
+			try (ResultSet rs = stm.executeQuery();) {
+				while (rs.next()) {
+					cliente = new Cliente();
+					cliente.setId(rs.getInt("id"));
+					cliente.setNome(rs.getString("nome"));
+					cliente.setEmail(rs.getString("email"));
+					cliente.setEmpresaId(rs.getInt("empresa_id"));
+					clientes.add(cliente);
+				}
+			} catch (SQLException e1) {
+				System.out.print(e1.getStackTrace());
 			}
 		} catch (SQLException e1) {
 			System.out.print(e1.getStackTrace());

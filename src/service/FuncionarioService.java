@@ -30,4 +30,8 @@ public class FuncionarioService {
 		
 	}
 
+	public ArrayList<Funcionario> listarPorEmpresa(int idEmpresa) {
+		return dao.listarTodos(idEmpresa);
+	}
+
 }

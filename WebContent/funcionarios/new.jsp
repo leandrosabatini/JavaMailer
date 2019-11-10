@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
 
-    <link href="../css/style.css" rel="stylesheet">
+    <link href="/Mailer/css/style.css" rel="stylesheet">
     
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
    	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
@@ -18,83 +18,41 @@
 </head>
 
 <body>
-    <div class="container-fluid display-table" style="padding: 0;">
+    <div class="container-fluid display-table" style="padding: 0;height: 100vh;">
         <div class="row display-table-row" style="height: 100vh;">
-            <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
-                <div class="logo">
-                    <a href="dashboard.jsp">
-                        <h1>Dashboard</h1>
-                    </a>
-                </div>
+            <div class="col-md-2 col-sm-1 toogle-menu hidden-xs  display-table-cell v-align box" id="navigation">
                 <div class="navi">
                     <ul>
                         <li><a href="/Mailer/dashboard.jsp"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Dashboard</span></a></li>
-                        <li><a href="#"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Empresa</span></a></li>
-                        <li class="active"><a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Funcionários</span></a></li>
-                        <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Clientes</span></a></li>
-                        <li><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Emails</span></a></li>
+                        <li><a href="/Mailer/controller.do?command=ViewEmpresa"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Empresa</span></a></li>
+                        <li class="active"><a href="/Mailer/controller.do?command=ListarFuncionarios"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Funcionários</span></a></li>
+                        <li><a href="/Mailer/controller.do?command=ListarClientes"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Clientes</span></a></li>
+                        <li><a href="/Mailer/controller.do?command=ListarEmails"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Emails</span></a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-10 col-sm-11 display-table-cell v-align">
-                <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
-                <div class="row">
-                    <header>
-                        <div class="col-md-7">
-                            <nav class="navbar-default pull-left">
-                                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas" data-target="#side-menu" aria-expanded="false">
-                                        <span class="sr-only">Toggle navigation</span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>
-                                </div>
-                            </nav>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="header-rightside">
-                                <ul class="list-inline header-top pull-right">                                    
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Perfil
-                                            <b class="caret"></b>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <div class="navbar-content">
-                                                    <span>Leandro</span>
-                                                    <p class="text-muted small">
-                                                        leandro.sabatini31@gmail.com
-                                                    </p>
-                                                    <div class="divider">
-                                                    </div>
-                                                    <a href="index.jsp" class="view btn-sm active">Sair</a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </header>
-                </div>
+                <c:import url="../TopMenu.jsp"/>
+                
                 <div class="cliente-dashboard">
                 	<div class="col-12" style="margin: 20px 0px;">
-                    	<span class="h1">Cadastrar novo funcionário</span>
+                    	<span class="h1">${title}</span>
                     </div>
                     <div class="col-12">
 						<div class="">
-							<form action="Funcionario.do" method="POST">
+							<form action="/Mailer/controller.do" method="POST">
+								<input class="hidden" type="text" name="id" value='${funcionario.id }'>
+								<input class="hidden" type="text" name="command" value="EditarFuncionario">
 								<div class="form-group">
 							    	<label for="nome">Nome</label>
-							    	<input type="text" class="form-control" name="nome" id="nome" placeholder="Leandro Sabatini">
+							    	<input type="text" value='${funcionario.nome }' class="form-control" name="nome" id="nome" placeholder="Leandro Sabatini">
 							  	</div>
 							  	<div class="form-group">
 							    	<label for="nome">Email</label>
-							    	<input type="text" class="form-control" name="email" id="email" placeholder="exemplo@dominio.com.br">
+							    	<input type="text" value='${funcionario.email }' class="form-control" name="email" id="email" placeholder="exemplo@dominio.com.br">
 							  	</div>
 							  	<div class="form-group">
-							  		<a class="btn btn-danger" type="submit" href="list.jsp">Voltar</a>
+							  		<a class="btn btn-danger" type="submit" href="/Mailer/controller.do?command=ListarFuncionarios">Voltar</a>
 							  		<button class="btn btn-success" type="submit">Salvar</button>
 							  	</div>
 							</form>

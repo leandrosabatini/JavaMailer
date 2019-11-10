@@ -11,20 +11,33 @@ import javax.servlet.http.HttpServletResponse;
 
 import command.Command;
 import dao.ConnectionFactory;
+import model.Usuario;
 
 @WebServlet("/controller.do")
 public class ServletController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doExecute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			request.setCharacterEncoding("UTF-8");
-			Command comando = (Command)Class.forName("command."+request.getParameter("command")).newInstance();
-			comando.executar(request, response);
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
-			e.printStackTrace();
-			throw new ServletException(e);
+		 Usuario user = (Usuario) request.getSession().getAttribute("logado");
+		 request.setCharacterEncoding("UTF-8");
+		 String command = request.getParameter("command");
+		 try {
+			if (!command.equals("FazerLogin") && user.getEmail() == null) {
+				response.sendRedirect("index.jsp");
+			} else {
+
+				try {
+					request.setCharacterEncoding("UTF-8");
+					Command comando = (Command)Class.forName("command."+request.getParameter("command")).newInstance();
+					comando.executar(request, response);
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException e) {
+					e.printStackTrace();
+					throw new ServletException(e);
+				}
+			}
+		} catch (Exception e) {
+			response.sendRedirect("index.jsp");
 		}
 	}	
 	

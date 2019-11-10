@@ -61,7 +61,6 @@ public class EmpresaDAO {
 		Empresa empresa = new Empresa();
 		empresa.setId(id);
 		String sqlSelect = "SELECT nome, cnpj FROM empresa WHERE empresa.id = ?";
-
 		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
 			stm.setInt(1, empresa.getId());

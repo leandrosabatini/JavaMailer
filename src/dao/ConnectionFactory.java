@@ -16,10 +16,9 @@ public class ConnectionFactory {
 	}
 
 	public static Connection obterConexao() throws SQLException {
-		if (conn.get() == null){
-			conn.set(DriverManager
-					.getConnection("jdbc:mysql://localhost:3306/sistem_mailer?useTimezone=true&serverTimezone=America/Sao_Paulo&user=root&password=root"));
-		}
+		conn.set(DriverManager
+			.getConnection("jdbc:mysql://localhost:3306/sistem_mailer?useTimezone=true&serverTimezone=America/Sao_Paulo&user=root&password=root"));
+
 		return conn.get();
 	}
 

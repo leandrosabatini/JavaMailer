@@ -30,4 +30,8 @@ public class ClienteService {
 		
 	}
 
+	public ArrayList<Cliente> listarPorEmpresa(int empresaId) {
+		return dao.listarPorEmpresa(empresaId);
+	}
+
 }

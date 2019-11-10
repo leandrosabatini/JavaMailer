@@ -148,7 +148,7 @@ public class EmailDAO {
 		
 		ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
 		FuncionarioService fs = new FuncionarioService();
-		sqlSelect = "SELECT cliente_id FROM email_funcionario WHERE email_funcionario.email_id = ?";
+		sqlSelect = "SELECT funcionario_id FROM email_funcionario WHERE email_id = ?";
 
 		try (Connection conn = ConnectionFactory.obterConexao();
 			PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
@@ -180,6 +180,32 @@ public class EmailDAO {
 			while (rs.next()) {
 				email = es.carregar(rs.getInt("id"));
 				emails.add(email);
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return emails;
+	}
+
+	public ArrayList<Email> listarPorEmpresa(int empresaId) {
+		ArrayList<Email> emails = new ArrayList<>();
+		String sqlSelect = "SELECT id FROM email WHERE empresa_id=?";
+		Email email;
+		EmailService es = new EmailService();
+
+		try (Connection conn = ConnectionFactory.obterConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);
+				) {
+			stm.setInt(1, empresaId);
+			try (ResultSet rs = stm.executeQuery();) {
+				while (rs.next()) {
+					email = new Email();
+					email.setId(rs.getInt("id"));
+					email = es.carregar(rs.getInt("id"));
+					emails.add(email);
+				}
+			} catch (SQLException e1) {
+				System.out.print(e1.getStackTrace());
 			}
 		} catch (SQLException e1) {
 			System.out.print(e1.getStackTrace());

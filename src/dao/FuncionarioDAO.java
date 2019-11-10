@@ -33,14 +33,15 @@ public class FuncionarioDAO {
 	}
 
 	public void atualizar(Funcionario funcionario) {
-		String sqlUpdate = "UPDATE funcionario SET nome=?, email=? empresa_id=? WHERE id=?";
-		// usando o try with resources do Java 7, que fecha o que abriu
+		String sqlUpdate = "UPDATE funcionario SET nome=?, email=?, empresa_id=? WHERE id=?";
+		
 		try (Connection conn = ConnectionFactory.obterConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
 			stm.setString(1, funcionario.getNome());
 			stm.setString(2, funcionario.getEmail());
 			stm.setInt(3, funcionario.getEmpresaId());
 			stm.setInt(4, funcionario.getId());
+			System.out.print(stm);
 			stm.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,6 +103,33 @@ public class FuncionarioDAO {
 				funcionario.setEmail(rs.getString("email"));
 				funcionario.setEmpresaId(rs.getInt("empresa_id"));
 				funcionarios.add(funcionario);
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return funcionarios;
+	}
+
+	public ArrayList<Funcionario> listarTodos(int idEmpresa) {
+		ArrayList<Funcionario> funcionarios = new ArrayList<>();
+		String sqlSelect = "SELECT id, nome, email, empresa_id FROM funcionario WHERE empresa_id=?";
+		Funcionario funcionario;
+
+		try (Connection conn = ConnectionFactory.obterConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);
+				) {
+			stm.setInt(1, idEmpresa);
+			try (ResultSet rs = stm.executeQuery();) {
+				while (rs.next()) {
+					funcionario = new Funcionario();
+					funcionario.setId(rs.getInt("id"));
+					funcionario.setNome(rs.getString("nome"));
+					funcionario.setEmail(rs.getString("email"));
+					funcionario.setEmpresaId(rs.getInt("empresa_id"));
+					funcionarios.add(funcionario);
+				}
+			} catch (SQLException e1) {
+				System.out.print(e1.getStackTrace());
 			}
 		} catch (SQLException e1) {
 			System.out.print(e1.getStackTrace());

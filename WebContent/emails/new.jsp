@@ -9,93 +9,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
 
-    <link href="../css/style.css" rel="stylesheet">
+    <link href="/Mailer/css/style.css" rel="stylesheet">
     
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
    	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
    	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+	
+	<!-- Include Editor style. -->
+	<link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
+	
+	<!-- Include JS file. -->
+	<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js'></script>
 </head>
 
 <body>
-    <div class="container-fluid display-table" style="padding: 0;">
+	<style>
+		#insertFile-1, .fr-quick-insert, .second-toolbar #logo {
+			display: none;
+		}
+	</style>
+    <div class="container-fluid display-table" style="padding: 0;height: 100vh;">
         <div class="row display-table-row" style="height: 100vh;">
-            <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
-                <div class="logo">
-                    <a href="dashboard.jsp">
-                        <h1>Dashboard</h1>
-                    </a>
-                </div>
+            <div class="col-md-2 col-sm-1 toogle-menu hidden-xs  display-table-cell v-align box" id="navigation">
                 <div class="navi">
                     <ul>
                         <li><a href="/Mailer/dashboard.jsp"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Dashboard</span></a></li>
-                        <li><a href="#"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Empresa</span></a></li>
-                        <li><a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Funcionários</span></a></li>
-                        <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Clientes</span></a></li>
-                        <li class="active"><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Emails</span></a></li>
+                        <li><a href="/Mailer/controller.do?command=ViewEmpresa"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Empresa</span></a></li>
+                        <li><a href="/Mailer/controller.do?command=ListarFuncionarios"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Funcionários</span></a></li>
+                        <li><a href="/Mailer/controller.do?command=ListarClientes"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Clientes</span></a></li>
+                        <li class="active"><a href="/Mailer/controller.do?command=ListarEmails"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Emails</span></a></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-10 col-sm-11 display-table-cell v-align">
-                <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
-                <div class="row">
-                    <header>
-                        <div class="col-md-7">
-                            <nav class="navbar-default pull-left">
-                                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas" data-target="#side-menu" aria-expanded="false">
-                                        <span class="sr-only">Toggle navigation</span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>
-                                </div>
-                            </nav>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="header-rightside">
-                                <ul class="list-inline header-top pull-right">                                    
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Perfil
-                                            <b class="caret"></b>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <div class="navbar-content">
-                                                    <span>Leandro</span>
-                                                    <p class="text-muted small">
-                                                        leandro.sabatini31@gmail.com
-                                                    </p>
-                                                    <div class="divider">
-                                                    </div>
-                                                    <a href="index.jsp" class="view btn-sm active">Sair</a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </header>
-                </div>
+            <div class="col-md-10 col-sm-11 display-table-cell v-align" style="max-height: 99vh;overflow-y: scroll;">
+            	<c:import url="../TopMenu.jsp"/>
+
                 <div class="cliente-dashboard">
                 	<div class="col-12" style="margin: 20px 0px;">
                     	<span class="h1">Enviar novo email</span>
                     </div>
                     <div class="col-12">
 						<div class="">
-							<form action="Email.do" method="POST">
+							<form action="/Mailer/controller.do" method="POST">
+								<input class="hidden" type="text" name="command" value="EnviarEmail">
+							
 								<div class="form-group">
 							    	<label for="nome">Assunto</label>
 							    	<input type="text" class="form-control" name="assunto" id="assunto" placeholder="Newsletter">
 							  	</div>
 							  	<div class="form-group">
-							    	<label for="nome">Conteúdo</label>
-							    	<input type="textarea" class="form-control" name="conteudo" id="conteudo">
+							    	<label for="nome">Clientes</label>
+							    	<select class="form-control select2" name="clientes" multiple>
+                                       	<option value='all'>Selecionar todos</option> 
+							    		<c:forEach var="cliente" items="${clientes}">
+                                        	<option value='${cliente.id}'>${cliente.nome} (${cliente.email})</option> 
+                                        </c:forEach>
+							    	</select>
+							  	</div>
+							  	
+							  	<div class="form-group">
+							    	<label for="nome">Funcionários</label>
+							    	<select class="form-control select2" name="funcionarios" multiple>
+                                       	<option value='all'>Selecionar todos</option> 
+							    		<c:forEach var="funcionario" items="${funcionarios}">
+                                        	<option value='${funcionario.id}'>${funcionario.nome} (${funcionario.email})</option> 
+                                        </c:forEach>
+							    	</select>
 							  	</div>
 							  	<div class="form-group">
-							  		<a class="btn btn-danger" type="submit" href="list.jsp">Voltar</a>
-							  		<button class="btn btn-success" type="submit">Salvar</button>
+							    	<label for="nome">Conteúdo</label>
+							    	<textarea rows="10" cols="30" class="form-control" name="conteudo" id="conteudo"></textarea>
+							  	</div>
+							  	<div class="form-group">
+							  		<a class="btn btn-danger" type="submit" href="/Mailer/controller.do?command=ListarEmails">Voltar</a>
+							  		<button class="btn btn-success" type="submit">Enviar</button>
 							  	</div>
 							</form>
 						</div>
@@ -104,6 +95,38 @@
             </div>
         </div>
     </div>
+    <script>
+    	$('.select2').select2()
+	    $('.select2').change(function(e) {
+	    	var $this = $(this);
+		    var prevValue = $(this).val();
+			prevValue.forEach(function(element) {
+		    	if (element == "all") {
+		    		var allOptions = [];
+		    		$this.children().each(function(i) {
+		    			var val = $(this).val();
+		    			if (val != "all") {
+		    				allOptions.push(val);
+		    			}
+		    		})
+		    		prevValue = allOptions;
+		    		$this.val(prevValue).trigger('change');
+				}
+			})
+		 	
+		})
+	    
+	    
+				
+		
+
+    	//$('select.your-select option').attr('selected', true).parent().trigger('change')
+	    new FroalaEditor('textarea', {
+	    	fileUpload: false,
+	    	imageUpload: false,
+	    	videoUpload: false
+	    });
+  </script>
 </body>
 
 </html>

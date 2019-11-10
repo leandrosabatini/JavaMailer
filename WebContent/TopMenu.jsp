@@ -8,8 +8,8 @@
     <header>
         <div class="col-md-7">
             <nav class="navbar-default pull-left">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas" data-target="#side-menu" aria-expanded="false">
+                <div class="navbar-header" style="background: white;">
+                    <button type="button" class="navbar-toggle collapsed toogle-menu-click" data-toggle="offcanvas" data-target="#side-menu" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -18,6 +18,11 @@
                 </div>
             </nav>
         </div>
+        <script type="text/javascript">
+        	$('.toogle-menu-click').click(function(e) {
+        		$('.toogle-menu').toggleClass('hidden-xs');
+        	})
+        </script>
         <div class="col-md-5">
             <div class="header-rightside">
                 <ul class="list-inline header-top pull-right">                                    
