@@ -20,10 +20,10 @@ public class FazerLogin implements Command {
 		Usuario usuario = new Usuario();
 		usuario.setEmail(email);
 		usuario.setSenha(senha);
-		UsuarioService service = new UsuarioService();
+		UsuarioService us = new UsuarioService();
 
-		if (service.validar(usuario)) {
-			usuario = service.carregarByEmail(email);
+		if (us.validar(usuario)) {
+			usuario = us.carregarByEmail(email);
 			HttpSession session = request.getSession();
 			session.setAttribute("logado", usuario);
 		} else {

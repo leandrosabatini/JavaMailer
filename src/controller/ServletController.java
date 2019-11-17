@@ -21,24 +21,37 @@ public class ServletController extends HttpServlet {
 		 Usuario user = (Usuario) request.getSession().getAttribute("logado");
 		 request.setCharacterEncoding("UTF-8");
 		 String command = request.getParameter("command");
-		 try {
-			if (!command.equals("FazerLogin") && user.getEmail() == null) {
+		 
+		 if (command.equals("Forgot") || command.equals("Register") || command.equals("FazerLogin")) {
+			 try {
+				 request.setCharacterEncoding("UTF-8");
+				 Command comando = (Command)Class.forName("command."+request.getParameter("command")).newInstance();
+				 comando.executar(request, response);
+			 } catch (InstantiationException | IllegalAccessException
+					 | ClassNotFoundException e) {
+				 e.printStackTrace();
+				 throw new ServletException(e);
+			 }
+		 } else {
+		 	try {
+				 if (user.getEmail() == null) {
+					 response.sendRedirect("index.jsp");
+				 } else {
+					 try {
+						 request.setCharacterEncoding("UTF-8");
+						 Command comando = (Command)Class.forName("command."+request.getParameter("command")).newInstance();
+						 comando.executar(request, response);
+					 } catch (InstantiationException | IllegalAccessException
+							 | ClassNotFoundException e) {
+						 e.printStackTrace();
+						 throw new ServletException(e);
+					 }
+				 }
+	 		} catch (Exception e) {
 				response.sendRedirect("index.jsp");
-			} else {
-
-				try {
-					request.setCharacterEncoding("UTF-8");
-					Command comando = (Command)Class.forName("command."+request.getParameter("command")).newInstance();
-					comando.executar(request, response);
-				} catch (InstantiationException | IllegalAccessException
-						| ClassNotFoundException e) {
-					e.printStackTrace();
-					throw new ServletException(e);
-				}
 			}
-		} catch (Exception e) {
-			response.sendRedirect("index.jsp");
-		}
+		 }
+		
 	}	
 	
 	@Override

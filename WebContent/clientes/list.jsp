@@ -44,7 +44,6 @@
 					            <table class="table">
 				                  	<thead>
 					                  	<tr class= "movie-table-head">
-					                      	<th>ID</th>
 					                      	<th>Nome</th>
 					                      	<th>E-mail</th>
 					                      	<th>Ações</th>
@@ -53,9 +52,6 @@
 					              	<tbody>
 						              	<c:forEach var="cliente" items="${clientes}">
 	                                       <tr>
-	                                            <td>
-	                                               #${cliente.id }
-	                                            </td>
 	                                            <td>
 	                                                ${cliente.nome }
 	                                            </td>
