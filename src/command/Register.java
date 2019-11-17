@@ -32,7 +32,7 @@ public class Register implements Command {
 		usuario.setEmail(pEmail);
 		usuario.setSenha(pSenha);
 		usuario.setEmpresaId(empresa.getId());
-		usuario.setId(us.criar(usuario));
+		usuario.setId(us.criar(usuario));	
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("logado", usuario);
