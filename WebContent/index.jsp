@@ -5,7 +5,7 @@
     Usuario user = (Usuario) request.getSession().getAttribute("logado");
 	try {
 		if (user.getEmail() != null) {
-			response.sendRedirect("dashboard.jsp");
+			response.sendRedirect("/Mailer/controller.do?command=ViewEmpresa");
 		}
 	} catch (Exception e) {}
 %>
@@ -21,7 +21,7 @@
 	
 	    <link href="css/bootstrap.min.css" rel="stylesheet">
 	    <link href="css/style.css" rel="stylesheet">
-	    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	    <link href="css/bootstrap4.css" rel="stylesheet" id="bootstrap-css">
 	    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		
@@ -295,6 +295,7 @@
 		    <!-- Icon -->
 		    <div class="fadeIn first">
 		      <h1 class="pt-4 pb-4">Fazer login</h1>
+		      <h5>${message}</h5>
 		    </div>
 		
 		    <!-- Login Form -->

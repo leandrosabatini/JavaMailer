@@ -26,7 +26,7 @@ public class ViewEmpresa implements Command {
 			}
 		} catch (Exception e) {}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("empresa/view.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("dashboard.jsp");
 
 		dispatcher.forward(request, response);
 	}

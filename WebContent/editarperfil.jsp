@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard</title>
+    <title>Editar usuário</title>
 
     <link href="/Mailer/css/style.css" rel="stylesheet">
     
@@ -26,33 +26,36 @@
                         
                         <li><a href="/Mailer/controller.do?command=ViewEmpresa"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Dashboard</span></a></li>
                         <li><a href="/Mailer/controller.do?command=ListarFuncionarios"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Funcionários</span></a></li>
-                        <li class="active"><a href="/Mailer/controller.do?command=ListarClientes"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Clientes</span></a></li>
+                        <li><a href="/Mailer/controller.do?command=ListarClientes"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Clientes</span></a></li>
                         <li><a href="/Mailer/controller.do?command=ListarEmails"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Emails</span></a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-10 col-sm-11 display-table-cell v-align">
-                <c:import url="../TopMenu.jsp"/>
-                
+            	<c:import url="TopMenu.jsp"/>
+
                 <div class="cliente-dashboard">
                 	<div class="col-12" style="margin: 20px 0px;">
-                    	<span class="h1">${title}</span>
+                    	<span class="h1">Editar usuário</span>
                     </div>
                     <div class="col-12">
 						<div class="">
 							<form action="/Mailer/controller.do" method="POST">
-								<input class="hidden" type="text" name="id" value='${cliente.id }'>
-								<input class="hidden" type="text" name="command" value="EditarCliente">
+								<input class="hidden" type="text" name="command" value="EditarPerfil">
 								<div class="form-group">
 							    	<label for="nome">Nome</label>
-							    	<input type="text" value='${cliente.nome }' class="form-control" name="nome" id="nome" placeholder="Leandro Sabatini">
+							    	<input type="text" value='${user.nome}' class="form-control" name="nome" id="nome" placeholder="Insira o seu nome">
 							  	</div>
 							  	<div class="form-group">
 							    	<label for="nome">Email</label>
-							    	<input type="text" value='${cliente.email }' class="form-control" name="email" id="email" placeholder="exemplo@dominio.com.br">
+							    	<input type="text" value='${user.email}' class="form-control" name="email" placeholder="Insira o sem email">
 							  	</div>
 							  	<div class="form-group">
-							  		<a class="btn btn-danger" type="submit" href="/Mailer/controller.do?command=ListarClientes">Voltar</a>
+							    	<label for="nome">Senha</label>
+							    	<input type="password" class="form-control" name="senha" id="nome" placeholder="Insira uma senha">
+							  	</div>
+							  	<div class="form-group">
+							  		<a class="btn btn-danger" type="submit" href="/Mailer/controller.do?command=ViewEmpresa">Voltar</a>
 							  		<button class="btn btn-success" type="submit">Salvar</button>
 							  	</div>
 							</form>

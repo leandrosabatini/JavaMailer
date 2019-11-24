@@ -37,7 +37,7 @@ public class Register implements Command {
 		HttpSession session = request.getSession();
 		session.setAttribute("logado", usuario);
 		
-		response.sendRedirect("dashboard.jsp");
+		response.sendRedirect("/Mailer/controller.do?command=ViewEmpresa");
 	}
 
 }

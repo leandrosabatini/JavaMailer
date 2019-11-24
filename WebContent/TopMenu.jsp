@@ -39,6 +39,7 @@
                                     </p>
                                     <div class="divider">
                                     </div>
+                                    <a href="/Mailer/controller.do?command=EditarPerfil" class="view btn-sm active">Editar perfil</a>
                                     <a href="/Mailer/controller.do?command=FazerLogout" class="view btn-sm active">Sair</a>
                                 </div>
                             </li>

@@ -41,9 +41,10 @@ public class EnviarEmail implements Command {
 		} catch (Exception e) {}
 
 		try {
+			System.out.println("tentando pegar clientes");
 			clientes = request.getParameterValues("clientes");
 		} catch (Exception e) {}
-		
+		System.out.println("tentado");
 		try {
 			funcionarios = request.getParameterValues("funcionarios");
 		} catch (Exception e) {}
@@ -54,32 +55,42 @@ public class EnviarEmail implements Command {
 
 		ClienteService cs = new ClienteService();
 		ArrayList<Cliente> clientesArray = new ArrayList<Cliente>();
-		for (String clienteId : clientes) {
-			Cliente cliente = cs.carregar(Integer.parseInt(clienteId));
-			clientesArray.add(cliente);
-			emails.add(cliente.getEmail());
+		System.out.println("5");
+		if (clientes.length > 0) {
+			for (String clienteId : clientes) {
+				Cliente cliente = cs.carregar(Integer.parseInt(clienteId));
+				clientesArray.add(cliente);
+				emails.add(cliente.getEmail());
+			}
 		}
-		
+		System.out.println("6");
 		FuncionarioService fs = new FuncionarioService();
 		ArrayList<Funcionario> funcionariosArray = new ArrayList<Funcionario>();
-		for (String funcionarioId : funcionarios) {
-			Funcionario funcionario = fs.carregar(Integer.parseInt(funcionarioId));
-			funcionariosArray.add(funcionario);
-			emails.add(funcionario.getEmail());
+		
+		if (funcionarios.length > 0) {
+			for (String funcionarioId : funcionarios) {
+				Funcionario funcionario = fs.carregar(Integer.parseInt(funcionarioId));
+				funcionariosArray.add(funcionario);
+				emails.add(funcionario.getEmail());
+			}
 		}
 		
 		EmailService es = new EmailService();
 		Email email = new Email();
 		email.setAssunto(assunto);
 		email.setConteudo(conteudo);
-		email.setFuncionarios(funcionariosArray);
-		email.setClientes(clientesArray);
+		if (funcionariosArray.size() > 0) {
+			email.setFuncionarios(funcionariosArray);
+		}
+		if (clientesArray.size() > 0) {
+			email.setClientes(clientesArray);
+		}
 		email.setEmpresaId(user.getEmpresaId());
-		email.setId(es.criar(email));
 		
 		
 		
 		
+		System.out.println("7");
 		
 		Properties props = new Properties();
 	    props.put("mail.smtp.host", "smtp.gmail.com");
@@ -112,6 +123,8 @@ public class EnviarEmail implements Command {
 	    } catch (MessagingException e) {
 	    	throw new RuntimeException(e);
 	    }
+	    
+	    email.setId(es.criar(email));
 
 	    response.sendRedirect("/Mailer/controller.do?command=ListarEmails");
 	}

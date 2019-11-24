@@ -2,6 +2,7 @@ package command;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,11 @@ public class FazerLogin implements Command {
 			HttpSession session = request.getSession();
 			session.setAttribute("logado", usuario);
 		} else {
-			throw new ServletException("Email ou senha inválidos");
+			request.setAttribute("message", "Usuário inválido");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+
+			dispatcher.forward(request, response);
 		}
 		response.sendRedirect("index.jsp");
 	}

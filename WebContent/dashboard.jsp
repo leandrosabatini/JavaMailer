@@ -22,7 +22,7 @@
 
     <link href="css/style.css" rel="stylesheet">
     
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="/Mailer/js/jquery-1.11.1.min.js"></script>
    	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
    	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -34,8 +34,8 @@
             <div class="col-md-2 col-sm-1 display-table-cell v-align box toogle-menu hidden-xs " id="navigation">
                 <div class="navi">
                     <ul>
-                        <li class="active"><a href="/Mailer/dashboard.jsp"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Dashboard</span></a></li>
-                        <li><a href="/Mailer/controller.do?command=ViewEmpresa"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Empresa</span></a></li>
+                        
+                        <li class="active"><a href="/Mailer/controller.do?command=ViewEmpresa"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Dashboard</span></a></li>
                         <li><a href="/Mailer/controller.do?command=ListarFuncionarios"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Funcionários</span></a></li>
                         <li><a href="/Mailer/controller.do?command=ListarClientes"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Clientes</span></a></li>
                         <li><a href="/Mailer/controller.do?command=ListarEmails"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Emails</span></a></li>
@@ -47,6 +47,12 @@
                 
                 <div class="user-dashboard">
                     <h1>Olá, <%=user.getNome()%></h1>
+                    <div class="row">
+                    </div>
+                </div>
+                
+                <div class="user-dashboard">
+                    <h1>${empresa.nome} <a href="controller.do?command=EditarEmpresa&id=${empresa.id }"><i class="fa fa-edit"></i></a></h1>
                     <div class="row">
                     </div>
                 </div>
